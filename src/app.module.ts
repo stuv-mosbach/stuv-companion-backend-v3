@@ -15,6 +15,7 @@ import { RequestLog } from "./entities/request_log.entity";
 import { RequestLogController } from './request-log/request-log.controller';
 import { RequestLogModule } from './request-log/request-log.module';
 import { StatusModule } from './status/status.module';
+import { IcsModule } from './ics/ics.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { StatusModule } from './status/status.module';
     }),
     SyncModule,
     StatusModule,
+    IcsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

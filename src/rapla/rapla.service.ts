@@ -81,6 +81,23 @@ export class RaplaService {
     }));
   }
 
+  async getLecturesAfter(course : string[], date : Date) : Promise<Lecture[]> {
+    return new Promise<Lecture[]>((async resolve => {
+      const lectures = await this.lectureRepo.find({
+        where: {
+          course: In(course),
+          date: MoreThanOrEqual(date)
+        },
+        order: {
+          startTime: "ASC"
+        },
+      });
+      lectures.forEach(l => l.lecturer = "");
+      resolve(lectures);
+      return;
+    }));
+  }
+
   getAllLectures(history = false) : Promise<Lecture[]> {
     return new Promise<Lecture[]>((async resolve => {
       if (history) {

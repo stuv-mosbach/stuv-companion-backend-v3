@@ -30,7 +30,7 @@ export class RaplaModule {
     this.updateCourses();
   }
 
-  @Cron("0 6-20/1 * * 6-7", {name: "rapla_sync_weekend"})
+  @Cron("0 6-20/1 * * 6,0", {name: "rapla_sync_weekend"})
   private async updateCourses() {
     await this.raplaService.updateCourses();
   }

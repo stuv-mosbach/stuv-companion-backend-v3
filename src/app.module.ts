@@ -14,6 +14,7 @@ import { SyncModule } from './sync/sync.module';
 import { RequestLog } from "./entities/request_log.entity";
 import { RequestLogController } from './request-log/request-log.controller';
 import { RequestLogModule } from './request-log/request-log.module';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -34,9 +35,13 @@ import { RequestLogModule } from './request-log/request-log.module';
         entities: [Lecture, NewLecture, UpdatedLecture, RemovedLecture, LectureSyncInfo, LectureChangeInfo, FieldChangeInfo, RequestLog],
         // TODO: Don't use synchronize in production
         synchronize: true,
+        poolErrorHandler: err => {
+          console.log(err);
+        }
       })
     }),
     SyncModule,
+    StatusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

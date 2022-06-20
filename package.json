@@ -1,6 +1,6 @@
 {
   "name": "stuv-companion-backend-v3",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "author": "",
   "private": true,
@@ -19,11 +19,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker:build": "docker build -t maxdola/stuv_companion_backend_v3:latest -t maxdola/stuv_companion_backend_v3:0.0.4 .",
+    "docker:build": "docker build -t maxdola/stuv_companion_backend_v3:latest -t maxdola/stuv_companion_backend_v3:0.0.5 .",
     "docker:push": "docker push maxdola/stuv_companion_backend_v3 --all-tags",
     "docker:run": "yarn docker:build && yarn docker:push",
-    "docker:ma:latest": "docker buildx build --platform linux/amd64,linux/arm64 --push -t maxdola/stuv_companion_backend_v3:latest -t maxdola/stuv_companion_backend_v3:0.0.4 .",
-    "docker:ma:beta": "docker buildx build --platform linux/amd64,linux/arm64 --push -t maxdola/stuv_companion_backend_v3:beta -t maxdola/stuv_companion_backend_v3:0.0.5 ."
+    "docker:ma:latest": "docker buildx build --platform linux/amd64,linux/arm64 --push -t maxdola/stuv_companion_backend_v3:latest -t maxdola/stuv_companion_backend_v3:0.0.5 .",
+    "docker:ma:beta": "docker buildx build --platform linux/amd64,linux/arm64 --push -t maxdola/stuv_companion_backend_v3:beta -t maxdola/stuv_companion_backend_v3:0.0.6 ."
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

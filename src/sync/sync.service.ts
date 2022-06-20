@@ -4,6 +4,7 @@ import { LectureSyncInfo } from "../entities/lecture_sync_info.entity";
 import { LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 import { getDayRage } from "../utils/date.utils";
 import * as moment from "moment";
+import { syncCensurer, syncCensurerSingleton } from "../utils/syncCensuerer";
 
 @Injectable()
 export class SyncService {
@@ -14,13 +15,18 @@ export class SyncService {
   }
 
   getSyncInfo(id: number) {
-    return this.syncRepo.findOne({
-        where: {
-          id
-        },
-        relations: ["newLectures", "updatedLectures", "removedLectures", "updatedLectures.lecture", "updatedLectures.changeInfos"]
-      }
-    );
+    return new Promise((resolve, reject) => {
+      this.syncRepo.findOne({
+          where: {
+            id
+          },
+          relations: ["newLectures", "updatedLectures", "removedLectures", "updatedLectures.lecture", "updatedLectures.changeInfos"]
+        }
+      ).then(res => {
+        syncCensurerSingleton(res);
+        resolve(res);
+      }).catch(reject)
+    })
   }
 
   async getLatestSyncInfos(skip = 0, amount = 10) {
@@ -82,6 +88,8 @@ export class SyncService {
 
       si.hasChanges = !!(si.newCount | si.updatedCount | si.removedCount);
     })
+
+    syncCensurer(syncInfos);
 
     return syncInfos;
   }
@@ -151,6 +159,8 @@ export class SyncService {
 
       si.hasChanges = !!(si.newCount | si.updatedCount | si.removedCount);
     })
+
+    syncCensurer(syncInfos);
 
     return syncInfos;
   }
